@@ -12,7 +12,9 @@ namespace AdventOfCodeSolutions2025
         static void Main(string[] args)
         {
             //--- Day 1: Secret Entrance --- PART 1
-            int SecretCombination = Solutions.GetKeyCombination(50, Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "SecretEntranceCombination.txt"));
+            int SecretCombinationPartOne = Solutions.GetKeyCombinationPartOne(50, Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "SecretEntranceCombination.txt"));
+            //--- Day 1: Secret Entrance --- PART 2
+            int SecretCombinationPartTwo = Solutions.GetKeyCombinationPartTwo(50, Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "SecretEntranceCombination.txt"));
         }
     }
 }
