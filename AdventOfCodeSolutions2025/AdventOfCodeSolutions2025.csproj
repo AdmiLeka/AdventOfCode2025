@@ -51,6 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PuzzleInputs\GiftShopIDRanges.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PuzzleInputs\SecretEntranceCombination.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

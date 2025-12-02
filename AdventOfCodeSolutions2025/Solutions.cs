@@ -114,5 +114,38 @@ namespace AdventOfCodeSolutions2025
 
             return iTimesCombinationWasZero;
         }
+
+        //--- Day 2: Gift Shop --- PART 1
+        public static long FindAllInvalidIDsAndAddThem(string sPathToTxtFileWithAllIDsToCheck)
+        {
+            long lInvalidIDsSum = 0;
+
+            string[] sArrayOfIDRanges = File.ReadAllText(sPathToTxtFileWithAllIDsToCheck).Split(',');
+            
+            foreach (string sID in sArrayOfIDRanges)
+            {
+                string[] IDRanges = sID.Split('-');
+
+                long lRangeFrom = Convert.ToInt64(IDRanges[0]);
+                long lRangeTo = Convert.ToInt64(IDRanges[1]);
+
+                while (lRangeFrom < lRangeTo)
+                {
+
+                    string sCurrentNumberAsString = lRangeFrom.ToString();
+
+                    if (sCurrentNumberAsString[0] == '0') continue;
+
+                    if (sCurrentNumberAsString.Length % 2 == 0 && sCurrentNumberAsString.Substring(0, (sCurrentNumberAsString.Length / 2)) == sCurrentNumberAsString.Substring((sCurrentNumberAsString.Length / 2)))
+                    {
+                        lInvalidIDsSum += lRangeFrom;
+                    }
+
+                    lRangeFrom++;
+                }
+            }
+
+            return lInvalidIDsSum;
+        }
     }
 }
