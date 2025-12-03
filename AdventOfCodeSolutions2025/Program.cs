@@ -16,7 +16,9 @@ namespace AdventOfCodeSolutions2025
             //--- Day 1: Secret Entrance --- PART 2
             int SecretCombinationPartTwo = Solutions.GetKeyCombinationPartTwo(50, Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "SecretEntranceCombination.txt"));
             //--- Day 2: Gift Shop --- PART 1
-            long lInvalidIDsSum = Solutions.FindAllInvalidIDsAndAddThem(Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "GiftShopIDRanges.txt"));
+            long lInvalidIDsSumPartOne = Solutions.FindAllInvalidIDsAndAddThemPartOne(Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "GiftShopIDRanges.txt"));
+            //--- Day 2: Gift Shop --- PART 2
+            long lInvalidIDsSumPartTwo = Solutions.FindAllInvalidIDsAndAddThemPartTwo(Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "GiftShopIDRanges.txt"));
         }
     }
 }

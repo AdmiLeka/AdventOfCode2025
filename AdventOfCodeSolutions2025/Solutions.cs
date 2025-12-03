@@ -116,12 +116,12 @@ namespace AdventOfCodeSolutions2025
         }
 
         //--- Day 2: Gift Shop --- PART 1
-        public static long FindAllInvalidIDsAndAddThem(string sPathToTxtFileWithAllIDsToCheck)
+        public static long FindAllInvalidIDsAndAddThemPartOne(string sPathToTxtFileWithAllIDsToCheck)
         {
             long lInvalidIDsSum = 0;
 
             string[] sArrayOfIDRanges = File.ReadAllText(sPathToTxtFileWithAllIDsToCheck).Split(',');
-            
+
             foreach (string sID in sArrayOfIDRanges)
             {
                 string[] IDRanges = sID.Split('-');
@@ -139,6 +139,77 @@ namespace AdventOfCodeSolutions2025
                     if (sCurrentNumberAsString.Length % 2 == 0 && sCurrentNumberAsString.Substring(0, (sCurrentNumberAsString.Length / 2)) == sCurrentNumberAsString.Substring((sCurrentNumberAsString.Length / 2)))
                     {
                         lInvalidIDsSum += lRangeFrom;
+                    }
+
+                    lRangeFrom++;
+                }
+            }
+
+            return lInvalidIDsSum;
+        }
+
+        //--- Day 2: Gift Shop --- PART 2
+        // SOLUTION ONLY CONSIDERS NUMBERS UP TO 10 DIGITS
+        public static long FindAllInvalidIDsAndAddThemPartTwo(string sPathToTxtFileWithAllIDsToCheck)
+        {
+            long lInvalidIDsSum = 0;
+
+            string[] sArrayOfIDRanges = File.ReadAllText(sPathToTxtFileWithAllIDsToCheck).Split(',');
+
+            foreach (string sID in sArrayOfIDRanges)
+            {
+                string[] IDRanges = sID.Split('-');
+
+                long lRangeFrom = Convert.ToInt64(IDRanges[0]);
+                long lRangeTo = Convert.ToInt64(IDRanges[1]);
+
+                while (lRangeFrom < lRangeTo)
+                {
+                    string sCurrentNumberAsString = lRangeFrom.ToString();
+
+                    if (sCurrentNumberAsString[0] == '0') continue;
+                    //if (sCurrentNumberAsString.Length == 2 && sCurrentNumberAsString[0] == sCurrentNumberAsString[1])
+                    //{
+                    //    lInvalidIDsSum += lRangeFrom;
+                    //}
+                    else if (sCurrentNumberAsString.Length % 2 == 0 && sCurrentNumberAsString.Substring(0, (sCurrentNumberAsString.Length / 2)) == sCurrentNumberAsString.Substring((sCurrentNumberAsString.Length / 2)))
+                    {
+                        lInvalidIDsSum += lRangeFrom;
+                        lRangeFrom++;
+                        continue;
+                    }
+                    else if (sCurrentNumberAsString.Length % 3 == 0
+                        && sCurrentNumberAsString.Substring(0, (sCurrentNumberAsString.Length / 3)) == sCurrentNumberAsString.Substring((sCurrentNumberAsString.Length / 3), (sCurrentNumberAsString.Length / 3))
+                        && sCurrentNumberAsString.Substring(0, (sCurrentNumberAsString.Length / 3) * 2) == sCurrentNumberAsString.Substring((sCurrentNumberAsString.Length / 3)))
+                    {
+                        lInvalidIDsSum += lRangeFrom;
+                    }
+                    else if (sCurrentNumberAsString.Length == 10
+                        && sCurrentNumberAsString.Substring(0, 2) == sCurrentNumberAsString.Substring(2, 2)
+                        && sCurrentNumberAsString.Substring(0, 2) == sCurrentNumberAsString.Substring(4, 2)
+                        && sCurrentNumberAsString.Substring(4, 2) == sCurrentNumberAsString.Substring(6, 2)
+                        && sCurrentNumberAsString.Substring(6, 2) == sCurrentNumberAsString.Substring(8, 2))
+                    {
+                        lInvalidIDsSum += lRangeFrom;
+                    }
+                    else if (sCurrentNumberAsString.Length % 2 == 1 && sCurrentNumberAsString.Length > 1)
+                    {
+                        bool bAreAllNumbersTheSame = false;
+
+                        int iNumberLength = sCurrentNumberAsString.Length;
+                        int iCounter = 0;
+
+                        while (iCounter < iNumberLength - 1)
+                        {
+                            bAreAllNumbersTheSame = sCurrentNumberAsString[iCounter] == sCurrentNumberAsString[iCounter + 1] ? true : false;
+                            if (!bAreAllNumbersTheSame) break;
+                            iCounter++;
+                        }
+
+                        if (bAreAllNumbersTheSame)
+                        {
+                            lInvalidIDsSum += lRangeFrom;
+                        }
                     }
 
                     lRangeFrom++;
