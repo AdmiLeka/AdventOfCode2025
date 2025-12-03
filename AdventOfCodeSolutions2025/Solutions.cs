@@ -16,7 +16,7 @@ namespace AdventOfCodeSolutions2025
 
             int iKeyCombination = iStartingPoint;
 
-            var sFileContent = File.ReadLines(sPathToTxtFileWithLockCombinations);
+            IEnumerable<string> sFileContent = File.ReadLines(sPathToTxtFileWithLockCombinations);
 
             foreach (string line in sFileContent)
             {
@@ -168,10 +168,7 @@ namespace AdventOfCodeSolutions2025
                     string sCurrentNumberAsString = lRangeFrom.ToString();
 
                     if (sCurrentNumberAsString[0] == '0') continue;
-                    //if (sCurrentNumberAsString.Length == 2 && sCurrentNumberAsString[0] == sCurrentNumberAsString[1])
-                    //{
-                    //    lInvalidIDsSum += lRangeFrom;
-                    //}
+
                     else if (sCurrentNumberAsString.Length % 2 == 0 && sCurrentNumberAsString.Substring(0, (sCurrentNumberAsString.Length / 2)) == sCurrentNumberAsString.Substring((sCurrentNumberAsString.Length / 2)))
                     {
                         lInvalidIDsSum += lRangeFrom;
@@ -217,6 +214,67 @@ namespace AdventOfCodeSolutions2025
             }
 
             return lInvalidIDsSum;
+        }
+
+        //--- Day 3: Lobby ---
+        public static int FindTheMaximumJoltageFromBatteries(string sPathToTxtFileWithAllBatteryBanks)
+        {
+            int iMaximumJoltage = 0;
+            int iIndexOfFirstMaxNumber = 0;
+
+            IEnumerable<string> iesBatteryBanks = File.ReadLines(sPathToTxtFileWithAllBatteryBanks);
+
+            foreach (string sBatteryBank in iesBatteryBanks)
+            {
+                List<int> liFirstIterationNumbersList = new List<int>();
+                int iBatteryBankStringLength = sBatteryBank.Length;
+
+                for (int i = 0; i <= iBatteryBankStringLength - 1; i++)
+                {
+                    liFirstIterationNumbersList.Add(Convert.ToInt32(sBatteryBank[i].ToString()));
+                }
+
+
+                string sFirstMaxNumber = liFirstIterationNumbersList.Max().ToString();
+                int iNewIndex = liFirstIterationNumbersList.IndexOf(liFirstIterationNumbersList.Max());
+                if (iNewIndex + 1 == iBatteryBankStringLength - 1)
+                {
+                    string sNumberWhereIndexWas99 = $"{sFirstMaxNumber}{sBatteryBank.Last().ToString()}";
+                    Console.WriteLine($"{sBatteryBank } INDEX 98 ==> { sNumberWhereIndexWas99}");
+
+                    iMaximumJoltage += Convert.ToInt32($"{sFirstMaxNumber}{sBatteryBank.Last().ToString()}");
+                }
+                else if (iNewIndex == iBatteryBankStringLength - 1)
+                {
+                    List<int> liAllNumbersExceptLastOneInSequence = new List<int>();
+
+                    for (int i = 0; i < iBatteryBankStringLength - 1; i++)
+                    {
+                        liAllNumbersExceptLastOneInSequence.Add(Convert.ToInt32(sBatteryBank[i].ToString()));
+                    }
+
+                    var sNumberWhereIndexWas99 = $"{liAllNumbersExceptLastOneInSequence.Max().ToString()}{sBatteryBank.Last().ToString()}";
+
+                    Console.WriteLine($"{sBatteryBank} INDEX 99 ==> {sNumberWhereIndexWas99}");
+
+                    iMaximumJoltage += Convert.ToInt32($"{liAllNumbersExceptLastOneInSequence.Max().ToString()}{sBatteryBank.Last().ToString()}");
+                }
+                else
+                {
+                    List<int> liSecondMaxNumbers = new List<int>();
+
+                    for (int i = iNewIndex + 1; i < iBatteryBankStringLength - 1; i++)
+                    {
+                        liSecondMaxNumbers.Add(Convert.ToInt32(sBatteryBank[i].ToString()));
+                    }
+
+                    string sSecondMaxNumber = liSecondMaxNumbers.Max().ToString();
+
+                    iMaximumJoltage += Convert.ToInt32($"{sFirstMaxNumber}{sSecondMaxNumber}");
+                }
+            }
+
+            return iMaximumJoltage;
         }
     }
 }
