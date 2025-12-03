@@ -14,10 +14,10 @@ namespace AdventOfCodeSolutions2025
 
             for (int i = 0; i < sNumberSequenceAsString.Length; i++)
             {
-                liListOfAllNumbers.Add(sNumberSequenceAsString[i]);
+                liListOfAllNumbers.Add(Convert.ToInt32(sNumberSequenceAsString[i].ToString()));
             }
             iIndex = liListOfAllNumbers.IndexOf(liListOfAllNumbers.Max());
-            return liListOfAllNumbers.Max();
+            return Convert.ToInt32(liListOfAllNumbers.Max().ToString());
         }
     }
 }
