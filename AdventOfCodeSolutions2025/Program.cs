@@ -20,7 +20,9 @@ namespace AdventOfCodeSolutions2025
             //--- Day 2: Gift Shop --- PART 2
             long lInvalidIDsSumPartTwo = Solutions.FindAllInvalidIDsAndAddThemPartTwo(Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "GiftShopIDRanges.txt"));
             //--- Day 3: Lobby --- PART 1
-            int lMaximumJoltage = Solutions.FindTheMaximumJoltageFromBatteries(Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "BatteryBanks.txt"));
+            int lMaximumJoltagePartOne = Solutions.FindTheMaximumJoltageFromBatteriesPartOne(Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "BatteryBanks.txt"));
+            //--- Day 3: Lobby --- PART 2
+            long lMaximumJoltagePartTwo = Solutions.FindTheMaximumJoltageFromBatteriesPartTwo(Path.Combine(AppContext.BaseDirectory, "PuzzleInputs", "BatteryBanks.txt"));
         }
     }
 }

@@ -217,21 +217,22 @@ namespace AdventOfCodeSolutions2025
         }
 
         //--- Day 3: Lobby --- PART 1
-        public static int FindTheMaximumJoltageFromBatteries(string sPathToTxtFileWithAllBatteryBanks)
+        public static int FindTheMaximumJoltageFromBatteriesPartOne(string sPathToTxtFileWithAllBatteryBanks)
         {
             int iMaximumJoltage = 0;
             int iIndexOfFirstMaxNumber = 0;
+            string sNumberSequence = String.Empty;
 
             IEnumerable<string> iesBatteryBanks = File.ReadLines(sPathToTxtFileWithAllBatteryBanks);
 
             foreach (string sBatteryBank in iesBatteryBanks)
             {
-                int iFirstMaxDigit = HelperMethods.GetMaxNumberFromAStringNumberSequence(sBatteryBank, ref iIndexOfFirstMaxNumber);
+                int iFirstMaxDigit = HelperMethods.GetMaxNumberFromAStringNumberSequencePartOne(sBatteryBank, ref iIndexOfFirstMaxNumber);
                 int iSecondMaxDigit = 0;
 
                 if (iIndexOfFirstMaxNumber == sBatteryBank.Length - 1)
                 {
-                    iSecondMaxDigit = HelperMethods.GetMaxNumberFromAStringNumberSequence(sBatteryBank.Substring(0, sBatteryBank.Length - 1), ref iIndexOfFirstMaxNumber);
+                    iSecondMaxDigit = HelperMethods.GetMaxNumberFromAStringNumberSequencePartOne(sBatteryBank.Substring(0, sBatteryBank.Length - 1), ref iIndexOfFirstMaxNumber);
                     iMaximumJoltage += Convert.ToInt32($"{iSecondMaxDigit.ToString()}{iFirstMaxDigit.ToString()}");
                 }
                 else if (iIndexOfFirstMaxNumber == sBatteryBank.Length - 2)
@@ -241,10 +242,37 @@ namespace AdventOfCodeSolutions2025
                 }
                 else
                 {
-                    iSecondMaxDigit = HelperMethods.GetMaxNumberFromAStringNumberSequence(sBatteryBank.Substring(iIndexOfFirstMaxNumber + 1), ref iIndexOfFirstMaxNumber);
+                    iSecondMaxDigit = HelperMethods.GetMaxNumberFromAStringNumberSequencePartOne(sBatteryBank.Substring(iIndexOfFirstMaxNumber + 1), ref iIndexOfFirstMaxNumber);
 
                     iMaximumJoltage += Convert.ToInt32($"{iFirstMaxDigit.ToString()}{iSecondMaxDigit.ToString()}");
                 }
+            }
+
+            return iMaximumJoltage;
+        }
+
+        //--- Day 3: Lobby --- PART 2
+        public static long FindTheMaximumJoltageFromBatteriesPartTwo(string sPathToTxtFileWithAllBatteryBanks)
+        {
+            long iMaximumJoltage = 0;
+            string sNumberSequence = String.Empty;
+            int iIndexOfFirstMaxNumber = 0;
+
+            StringBuilder sbMaxJoltageNumberAsString = new StringBuilder();
+
+            IEnumerable<string> iesBatteryBanks = File.ReadLines(sPathToTxtFileWithAllBatteryBanks);
+
+            foreach (string sBatteryBank in iesBatteryBanks)
+            {
+                sNumberSequence = sBatteryBank;
+
+                for (int i = 11; i >= 0; i--)
+                {
+                    sbMaxJoltageNumberAsString.Append(HelperMethods.GetMaxNumberFromAStringNumberSequencePartTwo(sNumberSequence.Substring(0, sNumberSequence.Length - i), ref iIndexOfFirstMaxNumber, ref sNumberSequence).ToString());
+                }
+                iMaximumJoltage += Convert.ToInt64(sbMaxJoltageNumberAsString.ToString());
+                sbMaxJoltageNumberAsString.Clear();
+                iIndexOfFirstMaxNumber = 0;
             }
 
             return iMaximumJoltage;
